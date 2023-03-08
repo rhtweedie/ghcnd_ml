@@ -1,2 +1,4 @@
 ghcnd_gcn/
+__pycache__
+data/
 *.dly
