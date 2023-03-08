@@ -2,7 +2,7 @@
 import urllib.request
 from datetime import date
 import numpy as np
-import matplotlib.pyplot as plt
+import sys
 
 
 class Station():
@@ -201,6 +201,28 @@ class Variable:
 
         for i in range(len(self.__dates)):
             self.__dates[i] = (self.__dates[i] - start_time).days
+
+    def count_gaps(self):
+        """
+        Counts the number of gaps in the data.
+
+        Returns:
+            int: the number of gaps in the data
+        """
+        # check that dates are in the correct format
+        if not isinstance(self.__dates[-1], int):
+            sys.exit(
+                "The dates must be in the format of 'days since first recording'.")
+
+        # make list of all dates that should be present
+        all_dates = range(self.__dates[-1])
+
+        # count how many dates are missing
+        count = 0
+        for date in all_dates:
+            if date not in self.__dates:
+                count += 1
+        return count
 
     def get_dates(self):
         return self.__dates
