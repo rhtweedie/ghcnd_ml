@@ -24,7 +24,9 @@ class Station():
 
 
 class GHNCD:
-    # Class that hides some ugly reading routines
+    """
+    Class that hides some ugly reading routines
+    """
 
     # Class constructor
     def __init__(self):
@@ -33,14 +35,24 @@ class GHNCD:
             self.station_col_len.append(5)
             self.station_col_len.append(3)
 
-    # Split up the fixed length text arrays into fields
     def chunkstring(self, string, lengths):
+        """
+        Splits up the fixed length text arrays into fields
+        """
         return (string[pos:pos+length].strip()
                 for idx, length in enumerate(lengths)
                 for pos in [sum(map(int, lengths[:idx]))])
 
-    # Process a file and extract all the information into a dictionary
     def processFile(self, fileName):
+        """
+        Processes a file and extracts information into a dict.
+
+        Params:
+            fileName: the file to process
+
+        Returns:
+            A dictionary of the data contained in fileName
+        """
         outDict = {}
         with open(fileName, 'r') as fp:  # Open file
             line = fp.readline()  # Read first line
@@ -75,6 +87,9 @@ class GHNCD:
         return dict(outDict)  # Return a copy
 
     def readCountriesFile(self, fileName=None):
+        """
+        Reads a file of countries and codes.
+        """
         self.countryDict = {}
         if fileName == None:
             file = urllib.request.urlopen(
@@ -89,7 +104,9 @@ class GHNCD:
         print(f"Read {len(self.countryDict)} countries and codes")
 
     def readStationsFile(self, fileName=None, justGSN=True):
-
+        """
+        Reads a file of stations.
+        """
         # ------------------------------
         # Variable   Columns   Type
         # ------------------------------
@@ -103,6 +120,7 @@ class GHNCD:
         # HCN/CRN FLAG 77-79   Character
         # WMO ID       81-85   Character
         # ------------------------------
+
         self.stationDict = {}
         if fileName == None:
             file = urllib.request.urlopen(
@@ -128,8 +146,17 @@ class GHNCD:
             ), gsn, hcn, wmo, self.countryDict[sid[0:2]])
         print(f"Read {len(self.stationDict)} stations with justGSN")
 
-    # Get all the data for a given variable type
     def getVar(self, statDict, varName='TMAX'):
+        """
+        Gets all the data for a given variable type.
+
+        Params:
+            statDict: a dictionary of station data from which to retrieve the specified variable
+            varName: the variable to retrieve
+
+        Returns:
+            a list of the specified data
+        """
         # The TMIN, TMAX, PRCP are all quoted in tenths (so need to be multipied by 0.1)
         cal = 0.1
         if varName == 'SNOW' or varName == 'SNWD':
