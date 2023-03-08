@@ -155,7 +155,7 @@ class GHNCD:
             varName: the variable to retrieve
 
         Returns:
-            a list of the specified data
+            a list of tuples (date, val) with the specified data
         """
         # The TMIN, TMAX, PRCP are all quoted in tenths (so need to be multipied by 0.1)
         cal = 0.1
@@ -177,3 +177,20 @@ class GHNCD:
     def getStatKeyNames(self):
         # print(self.stationDict.keys())
         return [*self.stationDict.keys()]
+
+
+def convert_time(variable):
+    """
+    Converts a list of tuples with time in months and years to a list of tuples with time since first recording.
+
+    Params:
+        variable: the list of tuples with time in months and years
+
+    Returns:
+        a list of tuples with times in time since first recording
+    """
+    start_time = variable[-1][0]
+
+    for i in range(len(variable)):
+        variable[i][0] = variable[i][0] - start_time
+    return variable
