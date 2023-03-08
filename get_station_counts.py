@@ -3,7 +3,7 @@ import json
 import sys
 
 
-def get_station_counts():
+def get_station_counts(var_type='TMAX'):
     """
     Counts the number of gaps in all station files.
     """
@@ -28,8 +28,8 @@ def get_station_counts():
             statDict = ghn.processFile(destination)
             print(ghn.getStation(station))
 
-            var = Variable(ghn.getVar(statDict, 'TMAX'),
-                           "max temp (degC)", ghn.stationDict[station].name)
+            var = Variable(ghn.getVar(statDict, var_type),
+                           var_type, ghn.stationDict[station].name)
             var.convert_time()
             count = var.count_gaps()
             counts[station] = count
@@ -38,13 +38,12 @@ def get_station_counts():
             continue
 
     # save output in text file
-    with open("stat_counts_tmax.txt", "a") as f:
+    with open(f"stat_counts_{var_type[1:-2]}.txt", "a") as f:
         json.dump(counts, f, indent=2)
 
 
 if __name__ == "__main__":
-    # if len(sys.argv) != 1:
-    #    sys.exit("Usage: get_station")
-    # print(str(sys.argv))
+    if len(sys.argv) != 1:
+        sys.exit("Usage: get_station_counts.py [var_type]")
 
-    get_station_counts()
+    get_station_counts(sys.argv[0])
