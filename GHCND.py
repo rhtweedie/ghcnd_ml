@@ -181,10 +181,11 @@ class GHNCD:
 
 class Variable:
 
-    def __init__(self, data, type):
-        self.__type = type
+    def __init__(self, data, label, station):
         self.__dates = list(list(zip(*data))[0])
         self.__vals = list(list(zip(*data))[1])
+        self.__label = label
+        self.__station = station
 
     def convert_time(self, start_time=None):
         """
@@ -201,11 +202,14 @@ class Variable:
         for i in range(len(self.__dates)):
             self.__dates[i] = (self.__dates[i] - start_time).days
 
-    def get_type(self):
-        return self.__type
-
     def get_dates(self):
         return self.__dates
 
     def get_vals(self):
         return self.__vals
+
+    def get_label(self):
+        return self.__label
+
+    def get_station(self):
+        return self.__station
