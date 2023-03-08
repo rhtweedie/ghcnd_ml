@@ -179,23 +179,33 @@ class GHNCD:
         return [*self.stationDict.keys()]
 
 
-def convert_time(variable, start_time=None):
-    """
-    Converts a list of tuples with time in months and years to a list of tuples with time since first recording.
+class Variable:
 
-    Params:
-        variable: the list of tuples with time in months and years
+    def __init__(self, data, type):
+        self.__type = type
+        self.__dates = list(list(zip(*data))[0])
+        self.__vals = list(list(zip(*data))[1])
 
-    Returns:
-        a list of tuples with times in time since first recording
-    """
-    if start_time == None:
-        # set start time to the date of the first recorded value
-        start_time = variable[0][0]
+    def convert_time(self, start_time=None):
+        """
+        Converts a list of tuples with time in months and years to a list of tuples with time since start_time.
 
-    # change each tuple value in the list to have time in terms of days since start_time
-    for i in range(len(variable)):
-        new_tuple = ((variable[i][0] - start_time).days, variable[i][1])
-        variable[i] = new_tuple
+        Params:
+            start_time: the starting time from which the time since will be calculated. If None, the start time
+                is the date of the first value.
+        """
+        if start_time == None:
+            # set start time to the date of the first recorded value
+            start_time = list(self.__dates)[0]
 
-    return variable
+        for i in range(len(self.__dates)):
+            self.__dates[i] = (self.__dates[i] - start_time).days
+
+    def get_type(self):
+        return self.__type
+
+    def get_dates(self):
+        return self.__dates
+
+    def get_vals(self):
+        return self.__vals
