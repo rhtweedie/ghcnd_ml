@@ -1,4 +1,3 @@
-# import the urllib library
 import urllib.request
 from datetime import date
 import numpy as np

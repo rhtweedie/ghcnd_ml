@@ -1,4 +1,4 @@
 ghcnd_gcn/
 __pycache__
-data/
+stations_daily/
 *.dly
