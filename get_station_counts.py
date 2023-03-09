@@ -43,7 +43,7 @@ def get_station_counts(var_type='TMAX'):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 1:
+    if len(sys.argv) != 2:
+        print(str(sys.argv))
         sys.exit("Usage: get_station_counts.py [var_type]")
-
-    get_station_counts(sys.argv[0])
+    get_station_counts(sys.argv[1])
