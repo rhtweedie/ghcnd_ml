@@ -1,4 +1,4 @@
-from GHCND.GHCND import *
+from GHCND import *
 import json
 import sys
 
