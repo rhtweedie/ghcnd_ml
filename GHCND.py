@@ -234,3 +234,41 @@ class Variable:
 
     def get_station(self):
         return self.__station
+
+
+def shapeArray(x, windowSize, offset):
+    """
+    Splits up a 1-d array x into a series of overlapping windows.
+
+    Params:
+        x: the 1-d array to split
+        windowSize: the number of samples used to train the network
+        offset: the number of samples into the future to predict
+
+    Returns:
+        input, label: a tuple of the array of input windows and target (label) windows,
+                each with dimensions (numberOfWindows, windowSize)
+    """
+    input = np.array([x[i: i + windowSize]
+                     for i in range(len(x) - (windowSize + offset) + 1)])
+    label = np.array([x[i + windowSize: i + windowSize + offset]
+                     for i in range(len(x) - (windowSize + offset) + 1)])
+    return (input, label)
+
+
+def weather_fake_loss(vals):
+    """
+    Calculates the loss for predicting the next-day weather at a given station, if you assume that the
+    weather is the same as the day before.
+
+    Params:
+        vals: a list of weather data over time at a single station
+
+    Returns:
+        lms: the sum of the error squared between each data point and the one after
+    """
+    lms = 0
+    for i in range(len(vals) - 1):
+        error = vals[i] - vals[i+1]
+        lms += error**2
+    return lms
