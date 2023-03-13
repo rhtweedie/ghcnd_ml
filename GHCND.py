@@ -201,6 +201,22 @@ class Variable:
         for i in range(len(self.__dates)):
             self.__dates[i] = (self.__dates[i] - start_time).days
 
+    def get_monthly_means(self):
+        """
+        Calculates the mean of a given variable for each month of data.
+`       """
+        monthly_vals = []
+        means = []
+        for i in range(1, len(self.__dates)):
+            if self.__dates[i].month == self.__dates[i-1].month:
+                monthly_vals.append(self.__vals[i])
+            else:
+                # calculate the mean and add this to the list of means
+                means.append(sum(monthly_vals) / len(monthly_vals))
+                # re-start list
+                monthly_vals = []
+        return means
+
     def count_gaps(self):
         """
         Counts the number of gaps in the data.
