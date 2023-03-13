@@ -201,6 +201,19 @@ class Variable:
         for i in range(len(self.__dates)):
             self.__dates[i] = (self.__dates[i] - start_time).days
 
+    def normalise(self, vals):
+        """
+        Normalises an array b y dividing it by the maximum value in the array.
+
+        Params:
+            vals: the array of values to be normalised
+
+        Returns:
+            an array of normalised values.
+        """
+        vals = np.array(vals)
+        return vals / np.max(vals)
+
     def get_monthly_means(self):
         """
         Calculates the mean of a given variable for each month of data.
