@@ -282,7 +282,7 @@ def shapeArray(x, windowSize, offset):
                      for i in range(len(x) - (windowSize + offset) + 1)])
     label = np.array([x[i + windowSize: i + windowSize + offset]
                      for i in range(len(x) - (windowSize + offset) + 1)])
-    return (input, label)
+    return (input, label[:, -1])
 
 
 def weather_fake_loss(vals):
