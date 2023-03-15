@@ -203,7 +203,7 @@ class Variable:
 
     def normalise(self, vals):
         """
-        Normalises an array b y dividing it by the maximum value in the array.
+        Normalises an array by removing the mean and dividing by the maximum value in the array.
 
         Params:
             vals: the array of values to be normalised
@@ -212,7 +212,7 @@ class Variable:
             an array of normalised values.
         """
         vals = np.array(vals)
-        return vals / np.max(vals)
+        return (vals - mean(vals)) / np.max(vals)
 
     def get_monthly_means(self):
         """
