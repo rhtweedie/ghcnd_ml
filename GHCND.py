@@ -311,19 +311,19 @@ def shapeArray(x, windowSize, offset):
     return (input, label[:, -1])
 
 
-def weather_fake_loss(vals):
+def weather_fake_mse(vals):
     """
-    Calculates the loss for predicting the next-day weather at a given station, if you assume that the
-    weather is the same as the day before.
+    Calculates the mean-squared-error given the next-day weather at a given station is assumed to be the same
+    as the day before.
 
     Params:
         vals: a list of weather data over time at a single station
 
     Returns:
-        lms: the sum of the error squared between each data point and the one after
+        mse: the mean-squared-error when comparing each value with the one after
     """
     lms = 0
     for i in range(len(vals) - 1):
         error = vals[i] - vals[i+1]
         lms += error**2
-    return lms
+    return lms / len(vals)
