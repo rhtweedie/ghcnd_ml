@@ -1,6 +1,7 @@
 import urllib.request
 from datetime import date
 import numpy as np
+from statistics import mean
 import sys
 
 
@@ -251,6 +252,31 @@ class Variable:
             if date not in self.__dates:
                 count += 1
         return count
+
+    def get_annual_vals(self, year):
+        """
+        Gets all the data for a given year.
+
+        Params:
+            year: the year for which data will be retrieved
+
+        Returns:
+            vals: the data for the specified year
+            dates: the corresponding dates
+        """
+        # check that dates are in the correct format
+        if isinstance(self.__vals[0], int):
+            sys.exit("Dates must be of type DateTime.")
+
+        # initialise empty lists
+        vals = []
+        dates = []
+
+        for i in range(len(self.__vals)):
+            if self.__dates[i].year == year:
+                vals.append(self.__vals[i])
+                dates.append(self.__dates[i])
+        return np.array(vals), np.array(dates)
 
     def get_dates(self):
         return self.__dates
