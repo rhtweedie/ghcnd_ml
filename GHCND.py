@@ -240,7 +240,7 @@ class Variable:
         # check that dates are in the correct format
         if not isinstance(self.__dates[-1], int):
             sys.exit(
-                "The dates must be in the format of 'days since first recording'.")
+                "Dates must be in the format of 'days since first recording'.")
 
         # make list of all dates that should be present
         all_dates = range(self.__dates[-1])
