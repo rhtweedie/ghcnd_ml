@@ -219,6 +219,10 @@ class Variable:
         """
         Calculates the mean of a given variable for each month of data.
 `       """
+        # check that dates are in the correct format
+        if isinstance(self.__vals[0], int):
+            sys.exit("Dates must be of type DateTime.")
+
         monthly_vals = []
         means = []
         for i in range(1, len(self.__dates)):
