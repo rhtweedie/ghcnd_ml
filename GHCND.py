@@ -23,7 +23,7 @@ class Station():
         return self.sid + f" is {self.name}, {self.country} at {str(self.lat)} {str(self.lon)} {str(self.el)}"
 
 
-class GHNCD:
+class GHCND:
     """
     Class that hides some ugly reading routines
     """
