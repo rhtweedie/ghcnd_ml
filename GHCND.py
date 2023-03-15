@@ -220,7 +220,7 @@ class Variable:
         Calculates the mean of a given variable for each month of data.
 `       """
         # check that dates are in the correct format
-        if isinstance(self.__vals[0], int):
+        if isinstance(self.__dates[0], int):
             sys.exit("Dates must be of type DateTime.")
 
         monthly_vals = []
@@ -269,7 +269,7 @@ class Variable:
             dates: the corresponding dates
         """
         # check that dates are in the correct format
-        if isinstance(self.__vals[0], int):
+        if isinstance(self.__dates[0], int):
             sys.exit("Dates must be of type DateTime.")
 
         # initialise empty lists
