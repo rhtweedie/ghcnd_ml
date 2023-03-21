@@ -57,10 +57,10 @@ class GHCND:
         with open(fileName, 'r') as fp:  # Open file
             line = fp.readline()  # Read first line
             while line:  # Process line
-                # Get list of fields
+                # get list of fields
                 fields = list(self.chunkstring(line, self.station_col_len))
 
-                # For clarity use some variable names
+                # define variables
                 station = fields[0]
                 year = int(fields[1])
                 month = int(fields[2])
@@ -74,7 +74,7 @@ class GHCND:
                         return -9999
                     return int(x)
 
-                # Convert missing entries to -9999 using this swishy bit of string comprehension
+                # convert missing entries to -9999
                 ivals = [checkInt(x, flag) for (x, flag) in zip(vals, flags)]
                 monthDict = dict(year=year, month=month,
                                  field=field, vals=ivals, flags=flags)
@@ -84,11 +84,11 @@ class GHCND:
                     fieldDict = dict(monthList=[monthDict])
                     outDict[field] = fieldDict
                 line = fp.readline()
-        return dict(outDict)  # Return a copy
+        return dict(outDict)
 
     def readCountriesFile(self, fileName=None):
         """
-        Reads a file of countries and codes.
+        Reads a file of countries and codes and stores these in a dictionary.
         """
         self.countryDict = {}
         if fileName == None:
@@ -105,7 +105,7 @@ class GHCND:
 
     def readStationsFile(self, fileName=None, justGSN=True):
         """
-        Reads a file of stations.
+        Reads a file of stations and stores these in a dictionary.
         """
         # ------------------------------
         # Variable   Columns   Type
@@ -312,6 +312,7 @@ def shapeArray(x, windowSize, offset):
                      for i in range(len(x) - (windowSize + offset) + 1)])
     label = np.array([x[i + windowSize: i + windowSize + offset]
                      for i in range(len(x) - (windowSize + offset) + 1)])
+    print(f"input shape: {np.shape(input)}; label shape: {np.shape(label)}")
     return (input, label[:, -1])
 
 
