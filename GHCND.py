@@ -312,7 +312,6 @@ def shapeArray(x, windowSize, offset):
                      for i in range(len(x) - (windowSize + offset) + 1)])
     label = np.array([x[i + windowSize: i + windowSize + offset]
                      for i in range(len(x) - (windowSize + offset) + 1)])
-    print(f"input shape: {np.shape(input)}; label shape: {np.shape(label)}")
     return (input, label[:, -1])
 
 
