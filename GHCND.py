@@ -144,7 +144,7 @@ class GHCND:
                     continue
             self.stationDict[sid] = Station(sid, lat, lon, el, state, name.rstrip(
             ), gsn, hcn, wmo, self.countryDict[sid[0:2]])
-        print(f"Read {len(self.stationDict)} stations with justGSN")
+        print(f"Read {len(self.stationDict)} stations from the GSN")
 
     def getVar(self, statDict, varName='TMAX'):
         """
