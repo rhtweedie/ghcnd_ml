@@ -7,7 +7,7 @@ def get_station_counts(var_type='TMAX'):
     """
     Counts the number of gaps in all station files.
     """
-    ghn = GHNCD()
+    ghn = GHCND()
     ghn.readCountriesFile()
     ghn.readStationsFile()
 
