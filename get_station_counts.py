@@ -23,7 +23,7 @@ def get_station_counts(var_type='TMAX'):
             urlName = 'http://www.hep.ucl.ac.uk/undergrad/0056/other/projects/ghcnd/ghcnd_gsn/' + fileName
 
             # copy station data from remote to local
-            destination = f"data/{fileName}"
+            destination = f"data/stations_daily/{fileName}"
             urllib.request.urlretrieve(urlName, destination)
             statDict = ghn.processFile(destination)
             print(ghn.getStation(station))
