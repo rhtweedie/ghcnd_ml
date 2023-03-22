@@ -162,7 +162,7 @@ class GHCND:
         if varName == 'SNOW' or varName == 'SNWD':
             cal = 1.0
         tempList = [(date(month['year'], month['month'], ind+1), cal*val) for month in statDict[varName]
-                    ['monthList'] for ind, val in enumerate(month['vals']) if val != -9999]
+                    ['monthList'] for ind, val in enumerate(month['vals'])]
         return tempList
 
     def getTMAX(self, statDict):
@@ -326,8 +326,22 @@ def weather_fake_mse(vals):
     Returns:
         mse: the mean-squared-error when comparing each value with the one after
     """
-    lms = 0
+    mse = 0
     for i in range(len(vals) - 1):
         error = vals[i] - vals[i+1]
-        lms += error**2
-    return lms / len(vals)
+        mse += error**2
+    return mse / len(vals)
+
+
+def shift(vals):
+    """
+    Inserts a copy of the first value of an array at the start of the array, to shift all values
+    one index forwards.
+
+    Params:
+        vals: an array to be shifted with length n
+
+    Returns:
+        an array of shifted values with length n+1
+    """
+    return np.insert(vals, 0, vals[0], axis=0)
