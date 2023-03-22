@@ -162,7 +162,7 @@ class GHCND:
         if varName == 'SNOW' or varName == 'SNWD':
             cal = 1.0
         tempList = [(date(month['year'], month['month'], ind+1), cal*val) for month in statDict[varName]
-                    ['monthList'] for ind, val in enumerate(month['vals'])]
+                    ['monthList'] for ind, val in enumerate(month['vals']) if val != -9999]
         return tempList
 
     def getTMAX(self, statDict):
@@ -214,6 +214,21 @@ class Variable:
         """
         vals = np.array(vals)
         return (vals - mean(vals)) / np.max(vals)
+
+    def de_normalise(self, vals, max, mean):
+        """
+        Undoes the normalisation of an array.
+
+        Params:
+            vals: the array to be de-normalised
+            max: the original maximum value of the dataset
+            mean: the original mean value of the dataset
+
+        Returns:
+            an array of de-normalised data
+        """
+        vals = np.array(vals)
+        return vals * max + mean
 
     def get_monthly_means(self):
         """
