@@ -1,3 +1,5 @@
+# Plots all stations in the GCN.
+
 from mpl_toolkits.basemap import Basemap
 from PIL import Image as im
 import matplotlib.pyplot as plt
